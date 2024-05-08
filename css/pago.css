@@ -1,0 +1,96 @@
+
+
+
+.modalPagoBody{
+    overflow-y: auto;
+}
+
+
+.containerFormPago {
+    background-color: red;
+   
+    display: flex;
+    justify-content: center;
+   
+}
+
+
+.containerFormPago form{
+  padding:20px;
+  width:100%;
+  background: #fff;
+  box-shadow: 0 5px 10px rgba(0,0,0,.1);
+}
+
+.containerFormPago form .row{
+  display: flex;
+  flex-wrap: wrap;
+  gap:15px;
+}
+
+.containerFormPago form .row .col{
+  flex:1 1 250px;
+}
+
+.containerFormPago form .row .col .title{
+  font-size: 20px;
+  color:#333;
+  padding-bottom: 5px;
+  text-transform: uppercase;
+}
+
+.containerFormPago form .row .col .inputBox{
+  margin:15px 0;
+}
+
+.containerFormPago form .row .col .inputBox span{
+  margin-bottom: 10px;
+  display: block;
+}
+
+.containerFormPago form .row .col .inputBox input{
+  width: 100%;
+  border:1px solid rgb(194, 194, 194);
+  padding:10px 15px;
+  font-size: 15px;
+  text-transform: none;
+  border-radius: 15px;
+  
+}
+
+.containerFormPago form .row .col .inputBox input:focus{
+  border:1px solid var(--bs-gray);
+  
+}
+
+.containerFormPago form .row .col .flex{
+  display: flex;
+  gap:15px;
+}
+
+.containerFormPago form .row .col .flex .inputBox{
+  margin-top: 5px;
+}
+
+.containerFormPago form .row .col .inputBox img{
+  height: 34px;
+  margin-top: 5px;
+  filter: drop-shadow(0 0 1px #000);
+}
+
+.containerFormPago form .submit-btn{
+  width: 100%;
+  padding:12px;
+  font-size: 17px;
+  border-radius: 15px;
+  border: none;
+  background: var(--bs-blue);
+  color:#fff;
+  margin-top: 5px;
+  cursor: pointer;
+}
+
+.containerFormPago form .submit-btn:hover{
+  background: #2ecc71;
+}
+

@@ -1,0 +1,145 @@
+/*
+.agendarCita{
+    background-color: red;
+}
+*/
+
+.container_logoutSesion_agendarCita{
+  text-align: end;
+  padding: 10px;
+  margin-bottom: 25px;
+}
+
+.container_logoutSesion_agendarCita button{
+  color: white;
+  text-decoration: none;
+  border: none;
+  background-color: var(--colorAdvertencia);
+  border-radius: 20px;
+  font-family: var(--Alegreya-Sans);
+  font-weight: 500;
+  font-size: 15px;
+  font-style: bold;
+  transition: 1s ease;
+  text-align: center;
+  padding: 10px 15px;
+}
+
+.container_logoutSesion_agendarCita button:hover{
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+.container_logoutSesion_agendarCita i{
+  color: white;
+}
+
+.bienvenida_agendarCita{
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.bienvenida_agendarCita h2{
+    color: var(--colorBaseVeterinaria);
+    font-family: var( --Permanent-Marker);
+    font-weight: 900;
+    font-style: normal;
+    font-size: 35px;
+}
+
+.bienvenida_agendarCita p{
+    color: var(--colorSecundarioVeterinaria);
+    font-family: var( --Permanent-Marker);
+    font-weight: 500;
+    font-style: normal;
+    font-size: 15px; 
+}
+
+
+
+
+/*calendario desde aqui *********************************************/
+
+
+
+.containerComprarVehiculo{
+  /* background-color: red; */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 98%;
+  max-width: 1800px;
+  margin: auto;
+  /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); */
+  border-radius: 15px;
+  padding: 10px;
+}
+
+
+
+.cardVehiculo{
+  border-radius: 15px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  width: 350px;
+  height: 400px;
+  margin: 20px;
+}
+
+.cardVehiculo img{
+  margin-bottom: 35px;
+}
+
+
+
+
+.cardVehiculo h3{
+  font-family: sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+
+.cardVehiculo p{
+  font-family: sans-serif;
+  margin-bottom: 15px;
+}
+
+.cardVehiculo h4{
+  font-family: sans-serif;
+  font-weight: 700;
+  font-size: 30px;
+}
+
+.cardVehiculo button{
+  margin-top: 20px;
+  border: none;
+  border-radius: 15px;
+  padding: 10px 50px;
+  background-color: var(--colorBaseVeterinaria);
+  color: white;
+  font-family: sans-serif;
+  font-size: 17px;
+  transition: 1s ease;
+}
+
+.cardVehiculo button:hover{
+  cursor: pointer;
+  transform: scale(1.1);
+}
+
+
+
+
+
+
+
+@media all and (max-width:870px){
+
+
+}
