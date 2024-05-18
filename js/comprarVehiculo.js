@@ -2,7 +2,7 @@
 var vehiculos = [];
 
 const obtenerVehiculos = () => {
-  const url = 'http://localhost:5140/api/Vehiculo';
+  const url = 'http://localhost:5080/api/Vehiculo';
 
   fetch(url)
   .then(response => {
@@ -36,13 +36,12 @@ obtenerVehiculos();
 
 
 
-
 var carrito = [];
 
 
 // Función para crear una tarjeta de vehículo
 function crearTarjetaVehiculo(vehiculo) {
-  console.log(vehiculo);
+  
   var card = document.createElement("div");
   card.classList.add("cardVehiculo");
 
@@ -90,8 +89,9 @@ function actualizarContadorCarrito() {
 
 // Función para imprimir los datos de la tarjeta
 function agregarVehiculoACarrito(vehiculo) {
+  
   carrito.push(vehiculo);
-  console.log(carrito);
+ 
   actualizarContadorCarrito();
 }
 
@@ -247,4 +247,136 @@ limpiarCarritoBtn.addEventListener("click", function() {
   limpiarProductosEnCarrito();
 });
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const cargarCorreoEnEtiqueta = () => {
+
+
+  // Leer el objeto desde sessionStorage
+  const storedUser = sessionStorage.getItem("sesionUser");
+
+  // Verificar que el objeto no sea null
+  if (storedUser) {
+      // Parsear el JSON a un objeto JavaScript
+      const sesionUser = JSON.parse(storedUser);
+
+      // Acceder a la propiedad cedula
+      const cedula = sesionUser.cedula;
+
+      const bienvenidaElement = document.getElementById("bienvenida_nameUser");
+    bienvenidaElement.textContent = cedula;
+
+      // Mostrar la cedula en la consola
+      console.log("Cédula recuperada:", cedula);
+  } else {
+      console.log("No se encontró ninguna sesión guardada en sessionStorage.");
+  }
+
+  
+};
+
+cargarCorreoEnEtiqueta();
+
+
+
+
+
+
+
+
+document.getElementById('formPago').addEventListener('submit', function(event) {
+  event.preventDefault(); // Evitar la recarga de la página
+
+
+  const vehiculos = carrito.map(item => ({ id: item.id }));
+  console.log(vehiculos);
+
+
+
+
+  const formData = new FormData();
+
+  formData.append("nombreCompleto", document.getElementById("nombreCompleto").value);
+  formData.append("correo", document.getElementById("correo").value);
+  formData.append("direccion", document.getElementById("direccion").value);
+  formData.append("provincia", document.getElementById("provincia").value);
+  formData.append("ciudad", document.getElementById("ciudad").value);
+  formData.append("codigoPostal", document.getElementById("codigoPostal").value);
+  formData.append("nombreTargeta", document.getElementById("nombreTargeta").value);
+  formData.append("numeroTargetaCredito", document.getElementById("numeroTargetaCredito").value);
+  formData.append("mesVencimiento", document.getElementById("mesVencimiento").value);
+  formData.append("anioVencimiento", document.getElementById("anioVencimiento").value);
+  formData.append("cvv", document.getElementById("cvv").value);
+  formData.append("vehiculos", JSON.stringify(vehiculos));
+
+    // Recopila los datos del formulario.
+   
+  console.log(formData);
+
+ 
+
+
+  // Leer el objeto desde sessionStorage
+  const storedUser = sessionStorage.getItem("sesionUser");
+
+  // Verificar que el objeto no sea null
+  if (storedUser) {
+    // Parsear el JSON a un objeto JavaScript
+    const sesionUser = JSON.parse(storedUser);
+
+    // Acceder a la propiedad cedula
+    const cedula = sesionUser.cedula;
+
+    // Mostrar la cedula en la consola
+    console.log("Cédula recuperada:", cedula);
+  } else {
+    console.log("No se encontró ninguna sesión guardada en sessionStorage.");
+  }
+
+  /*
+  
+  // Enviar los datos usando fetch
+  fetch('/ruta-al-servidor', {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(formData)
+  })
+  .then(response => response.json())
+  .then(data => {
+      // Manejar la respuesta del servidor
+      if (data.success) {
+          alert('Pago realizado con éxito');
+          // Cerrar el modal si es necesario
+          var modalElement = document.getElementById('pagoModal');
+          var modal = bootstrap.Modal.getInstance(modalElement);
+          modal.hide();
+      } else {
+          alert('Hubo un problema con el pago');
+      }
+  })
+  .catch(error => {
+      console.error('Error:', error);
+      alert('Error al realizar el pago');
+  });
+
+  */
+
+
+});
 

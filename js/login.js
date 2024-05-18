@@ -36,7 +36,7 @@ const getDatosFormulario = ()=>{
 
 
 const verificarLogin = (correo, contrasenia) => {
-    const uri = 'http://localhost:5140/api/Cliente';
+    const uri = 'http://localhost:5080/api/Cliente';
 
     fetch(`${uri}/${correo},${contrasenia}`, {
         method: "GET",

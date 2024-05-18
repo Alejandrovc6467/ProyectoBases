@@ -40,6 +40,11 @@
     <link rel="stylesheet" href="css/pago.css">    
 
 
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+	
+
+
     
 </head>
 
@@ -161,109 +166,85 @@
     
     
 
-
-
     <!-- Modal pago -->
-    <div class="modal fade" id="pagoModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
-
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Realiza el pago</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                
-                <div class="modalPagoBody" id="modalPagoBody">
-
-                    <div class="containerFormPago">
-
-                            <form action="">
-
-                                <div class="row">
-                        
-                                    <div class="col">
-                        
-                                        <h3 class="title">Dirección de facturación</h3>
-                        
-                                        <div class="inputBox">
-                                            <span>Nombre Completo :</span>
-                                            <input type="text" placeholder="Alejandro Vasquez Cordero" required>
-                                        </div>
-                                        <div class="inputBox">
-                                            <span>Correo :</span>
-                                            <input type="email" placeholder="example@example.com" required>
-                                        </div>
-                                        <div class="inputBox">
-                                            <span>Direccion :</span>
-                                            <input type="text" placeholder="Calle - Localidad" required>
-                                        </div>
-                                        <div class="inputBox">
-                                            <span>Provincia :</span>
-                                            <input type="text" placeholder="Cartago" required>
-                                        </div>
-                        
-                                        <div class="flex">
-                                            <div class="inputBox">
-                                                <span>Ciudad :</span>
-                                                <input type="text" placeholder="Turrialba" required>
-                                            </div>
-                                            <div class="inputBox">
-                                                <span>Codigo postal :</span>
-                                                <input type="text" placeholder="30506" required id="codigoPostal">
-                                            </div>
-                                        </div>
-                        
-                                    </div>
-                        
-                                    <div class="col">
-                        
-                                        <h3 class="title">Pago</h3>
-                        
-                                        <div class="inputBox">
-                                            <span>Tarjetas aceptadas :</span>
-                                            <img src="img/card_img.png" alt="">
-                                        </div>
-                                        <div class="inputBox">
-                                            <span>Nombre en Tarjeta :</span>
-                                            <input type="text" placeholder="Mr. Alejandro V" required>
-                                        </div>
-                                        <div class="inputBox">
-                                            <span>Número de tarjeta de crédito :</span>
-                                            <input type="text" placeholder="1111-2222-3333-4444" id="numeroTargetaCredito" required>
-                                        </div>
-                                        <div class="inputBox">
-                                            <span>Mes de vencimiento :</span>
-                                            <input type="text" placeholder="##" required id="mesVencimiento">
-                                        </div>
-                        
-                                        <div class="flex">
-                                            <div class="inputBox">
-                                                <span>Año de vencimiento :</span>
-                                                <input type="text" placeholder="####" required id="anioVencimiento">
-                                            </div>
-                                            <div class="inputBox">
-                                                <span>CVV :</span>
-                                                <input type="text" placeholder="1234" required id="cvv">
-                                            </div>
-                                        </div>
-                        
-                                    </div>
-                            
-                                </div>
-                        
-                                <input type="submit" value="Realizar el pago" class="submit-btn">
-                        
-                            </form>
-
-                    </div>
-                    
-                </div>
-                
+<div class="modal fade" id="pagoModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Realiza el pago</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-   
-
+            <div class="modalPagoBody" id="modalPagoBody">
+                <div class="containerFormPago">
+                    <form  method="POST" id="formPago">
+                        <div class="row">
+                            <div class="col">
+                                <h3 class="title">Dirección de facturación</h3>
+                                <div class="inputBox">
+                                    <span>Nombre Completo :</span>
+                                    <input type="text" id="nombreCompleto" placeholder="Alejandro Vasquez Cordero" required>
+                                </div>
+                                <div class="inputBox">
+                                    <span>Correo :</span>
+                                    <input type="email" id="correo" placeholder="example@example.com" required>
+                                </div>
+                                <div class="inputBox">
+                                    <span>Direccion :</span>
+                                    <input type="text" id="direccion" placeholder="Calle - Localidad" required>
+                                </div>
+                                <div class="inputBox">
+                                    <span>Provincia :</span>
+                                    <input type="text" id="provincia" placeholder="Cartago" required>
+                                </div>
+                                <div class="flex">
+                                    <div class="inputBox">
+                                        <span>Ciudad :</span>
+                                        <input type="text" id="ciudad" placeholder="Turrialba" required>
+                                    </div>
+                                    <div class="inputBox">
+                                        <span>Codigo postal :</span>
+                                        <input type="text" id="codigoPostal" placeholder="30506" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <h3 class="title">Pago</h3>
+                                <div class="inputBox">
+                                    <span>Tarjetas aceptadas :</span>
+                                    <img src="img/card_img.png" alt="">
+                                </div>
+                                <div class="inputBox">
+                                    <span>Nombre en Tarjeta :</span>
+                                    <input type="text" id="nombreTargeta" placeholder="Mr. Alejandro V" required>
+                                </div>
+                                <div class="inputBox">
+                                    <span>Número de tarjeta de crédito :</span>
+                                    <input type="text" id="numeroTargetaCredito" placeholder="1111-2222-3333-4444" required>
+                                </div>
+                                <div class="inputBox">
+                                    <span>Mes de vencimiento :</span>
+                                    <input type="text" id="mesVencimiento" placeholder="##" required>
+                                </div>
+                                <div class="flex">
+                                    <div class="inputBox">
+                                        <span>Año de vencimiento :</span>
+                                        <input type="text" id="anioVencimiento" placeholder="####" required>
+                                    </div>
+                                    <div class="inputBox">
+                                        <span>CVV :</span>
+                                        <input type="text" id="cvv" placeholder="1234" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="submit" value="Realizar el pago" class="submit-btn">
+                    </form>
+                </div>
+            </div>
         </div>
-    </div> 
+    </div>
+</div>
+
         
    
 
@@ -276,6 +257,8 @@
     <script src="js/StyleScript.js?25"></script>
     <script src="js/serverAPI.js?9687"></script>
     <script src="js/comprarVehiculo.js?14"></script>
+
+   
    
     <script>
         logout();

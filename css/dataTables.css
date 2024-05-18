@@ -1,0 +1,68 @@
+
+.dataTables{
+    width: 100%;
+    max-width: 1920px;
+    padding: 50px;
+    margin-bottom: 75px;
+ 
+}
+
+.ter {
+   color: var(--colorTextoP);
+}
+
+.dataTableStyle {
+    background-color: white;
+    padding: 30px 10px;
+    border-radius: 20px;
+    box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px; 
+}
+
+.dataTables h2{
+    color: var(--colorBaseVeterinaria);
+    margin-bottom: var(--marginbottomtitulo);
+}
+
+.buttonAgregar{
+    margin-bottom: 25px;
+}
+
+
+
+.conatainerBotonFormularioModal{
+    text-align: center;
+    margin: 30px 0 0 0;
+}
+.butonAgregarForm{
+    width: 200px;
+}
+
+.butonEditDelete{
+    border: none;
+    transition: 0.5s;
+    background-color: transparent;
+    margin-right: 20px;
+}
+
+.butonEditDelete:hover{
+    transform: scale(1.2);
+}
+
+
+
+
+@media all and (max-width:1050px){
+    .dataTables{
+        padding: 30px 10px;
+    }
+
+    .butonAgregarForm{
+        width: 50%;
+    }
+}
+
+@media all and (max-width:760px){
+    .butonEditDelete{
+        margin-right: 10px;
+    }  
+}
