@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="img/iconWebSite.png">
-    <title>Clinica Arbol de Seda</title>
+    <title>ElectriCars EcoVVR</title>
 
     <!--text fonts-->
 	<link rel="preconnect" href="https://fonts.googleapis.com">
@@ -29,6 +29,9 @@
     <link rel="stylesheet" href="css/footer.css?2">
 
 
+    <script src="js/libs/jquery.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </head>
 
 <body>
@@ -45,7 +48,7 @@
 
         <nav class="navbar">
             <a href="agendarCita.html">Agendar de citas</a>
-            <a href="busquedaMedicos.html">Búsqueda de médicos</a>
+            <a href="busquedaMedicos.html">Búsqueda de Vehículos</a>
         </nav>
         
     </header>
@@ -68,6 +71,11 @@
                     <div class="containerInput">
                         <label for="apellidos">Apellidos:</label>
                         <input type="text" id="apellidos" name="apellidos" required placeholder="Ingresa tus apellidos">
+                    </div>
+
+                    <div class="containerInput">
+                        <label for="apellidos">Dirección:</label>
+                        <input type="text" id="direccion" name="direccion" required placeholder="Ingresa la dirección">
                     </div>
     
                     <div class="containerInput">
@@ -124,13 +132,7 @@
     </footer>
 
 
-    <div class="modalNotificacion_container" id="modalNotificacion_container">
-        <div class="modalNotificacion" id="modalNotificacion">
-            <i class="fa-solid fa-circle-info fa-2xl"></i>
-            <p id="modalNotificacion_text"></p>
-            <button id="cerrar_modalNotificacion">Cerrar</button>
-        </div>
-    </div>
+
 
     <!-- Js animation -->
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
@@ -140,9 +142,9 @@
 
 
     <script src="js/StyleScript.js?1"></script>
-    <script src="js/hash.js"></script>
+    <script src="js/hash.js?13"></script>
     <script src="js/serverAPI.js"></script>
-    <script src="js/registrarUsuarios.js?214"></script>
+    <script src="js/registrarUsuarios.js?21"></script>
    
    
     

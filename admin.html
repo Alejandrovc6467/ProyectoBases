@@ -37,7 +37,7 @@
     <link rel="stylesheet" href="css/modal.css?721">
     <link rel="stylesheet" href="css/carruselServiciosMedicos.css?81">
     <link rel="stylesheet" href="css/footer.css?2">   
-    <link rel="stylesheet" href="css/dataTables.css">    
+    <link rel="stylesheet" href="css/dataTables.css?4887">    
 
 
     <script src="js/libs/jquery.js"></script>
@@ -144,7 +144,6 @@
                 <a href="contacto.html">Contacto</a>
                 <a href="preguntasFrecuentes.html">Preguntas (FAQ)</a>
                 <a href="politicaPrivacidad.html">Política de privacidad</a>
-                <a href="politicaPrivacidad.html">Política de privacidad</a>
            </div> 
 
         </div>
@@ -240,49 +239,88 @@
 
 
 
-    <!-- Modal update Profesor -->
-    <div class="modal fade" id="actualizarProfesorModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    
+    <!--Modal update pieza-->
+    <div class="modal fade" id="modalActualizarPieza" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Actualizar Profesor</h1>
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Actualizar Pieza</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 
                 <div class="modal-body">
 
-                    <form id="actualizarUsuario">
+                    <form id="actualizarPieza">
 
-                        <input type="text" class="form-control" placeholder="id" id="cedula_actualizarProfesor" aria-label="Username" aria-describedby="basic-addon1" required hidden>
 
-                        <div class="input-group mb-3">
-                            <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-user" style="color: #a3a3a3;"></i></span>
-                            <input type="text" class="form-control" placeholder="Username" id="nombre_actualizarProfesor" aria-label="Username" aria-describedby="basic-addon1" required>
+                        <div class="mb-3">
+                            <label for="basic-url" class="form-label">Id de pieza</label>
+                            <div class="input-group">
+                                <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-user" style="color: #a3a3a3;"></i></span>
+                                <input type="text" class="form-control" placeholder="" id="idUpdate" aria-label="cedula" aria-describedby="basic-addon1" required readonly>    
+                            </div>
+                            
                         </div>
 
-                        <div class="input-group mb-3">
-                            <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-user" style="color: #a3a3a3;"></i></span>
-                            <input type="text" class="form-control" placeholder="Nombre" id="apellido1_actualizarProfesor" aria-label="Username" aria-describedby="basic-addon1" required>
+                        <div class="mb-3">
+                            <label for="basic-url" class="form-label">Ingrese el nombre</label>
+                            <div class="input-group">
+                                <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-user" style="color: #a3a3a3;"></i></span>
+                                <input type="text" class="form-control" placeholder="" id="nombreUpdate" aria-label="cedula" aria-describedby="basic-addon1" required>    
+                            </div>
+                            
                         </div>
 
-                        <div class="input-group mb-3">
-                            <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-user" style="color: #a3a3a3;"></i></span>
-                            <input type="text" class="form-control" placeholder="Apellido" id="apellido2_actualizarProfesor" aria-label="Username" aria-describedby="basic-addon1" required>
+
+                        <div class="mb-3">
+                            <label for="basic-url" class="form-label">Ingresa la descripción</label>
+                            <div class="input-group">
+                                <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-circle-info" style="color: #a3a3a3;"></i></span>
+                                <input type="text" class="form-control" placeholder="" id="descripcionUpdate" aria-label="cedula" aria-describedby="basic-addon1" required>    
+                            </div>
+                            
                         </div>
 
+
+                        <div class="mb-3">
+                            <label for="basic-url" class="form-label">Ingresa el precio</label>
+                            <div class="input-group">
+                                <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-dollar-sign" style="color: #a3a3a3;"></i></span>
+                                <input type="text" class="form-control" placeholder="" id="precioUpdate" aria-label="cedula" aria-describedby="basic-addon1" required>    
+                            </div>
+                            
+                        </div>
+
+
+                        <div class="mb-3">
+                            <label for="basic-url" class="form-label">Ingresa el stock</label>
+                            <div class="input-group">
+                                <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-hashtag" style="color: #a3a3a3;"></i></span>
+                                <input type="text" class="form-control" placeholder="" id="stockUpdate" aria-label="cedula" aria-describedby="basic-addon1" required>    
+                            </div>
+                            
+                        </div>
+
+
+                    
                         <div class="conatainerBotonFormularioModal">
-                            <button type="submit" value="ActualizarProfesor" id="btnActualizarProfesor" class="btn btn-primary butonAgregarForm"><i class="fa-solid fa-file-pen" style="color: #ffffff;"></i> Actualizar Profesor</button>
+                            <button type="submit" value="Registrar" id="buttonActualizarPieza" class="btn btn-primary butonAgregarForm"><i class="fa-solid fa-square-plus" style="color: #ffffff;"></i>Actualizar Pieza</button>
                         </div>
+
 
                     </form>
+
+
                 </div>
+
             </div>
         </div>
     </div>
 
 
 
-    <script src="js/tablaPiezas.js?29"></script>
+    <script src="js/tablaPiezas.js?61"></script>
 
 
 

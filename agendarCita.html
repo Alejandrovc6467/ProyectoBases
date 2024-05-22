@@ -33,13 +33,16 @@
     <link rel="stylesheet" href="css/home.css?5454">
     <link rel="stylesheet" href="css/login.css?5454">
     <link rel="stylesheet" href="css/registroUsuarios.css">
-    <link rel="stylesheet" href="css/agendarCita.css?32518">
+    <link rel="stylesheet" href="css/agendarCita.css?8878">
     <link rel="stylesheet" href="css/modal.css?721">
     <link rel="stylesheet" href="css/carruselServiciosMedicos.css?81">
     <link rel="stylesheet" href="css/footer.css?2">    
-    <link rel="stylesheet" href="css/pago.css">    
+    <link rel="stylesheet" href="css/pago.css">  
+    <link rel="stylesheet" href="css/modalCarrito.css">    
 
 
+
+    <script src="js/libs/jquery.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 	
@@ -145,16 +148,28 @@
 
                         </div>
 
+                        <div class="mb-3">
+                            <label for="basic-url" class="form-label">Selecciona la sucursal:</label>
+                            <div class="input-group">
+                                <select class="form-select horaInput" id="sucursal" placeholder="ciclo" required>
+                                
+                                    
+                                </select>
+                            </div>
+                        
+                        </div>
+
+
                         <div class="detallesDeCompra">
-                            <p>Detalles de la compra</p><br>
+                            <h2 class="center">Detalles de la compra</h2><br>
                             <p>Precio total: <span id="precioTotal"></span></p>
                             <p>Descuento: <span id="descuento"></span></p>
                             <p>Total de la orden: <span id="totalDeLaOrden"></span></p>
                         </div>
 
                     <div class="containerBtnContinuar"> 
-                        <button class="btn btn-primary" data-bs-target="#pagoModal" data-bs-toggle="modal">Continuar</button>
-                        <button  id="limpiarCarrito">Limpiar Carrito</button>
+                        <button class="buttonCarito continuar" data-bs-target="#pagoModal" data-bs-toggle="modal">Continuar</button>
+                        <button  id="limpiarCarrito" class="buttonCarito limpiar">Limpiar Carrito</button>
                     </div>
 
                 </div>
@@ -180,6 +195,18 @@
                         <div class="row">
                             <div class="col">
                                 <h3 class="title">Dirección de facturación</h3>
+
+                                <div class="mb-3">
+                                    <label for="basic-url" class="form-label">Selecciona el tipo de pago:</label>
+                                    <div class="input-group">
+                                        <select class="form-select horaInput" id="metodoPago" placeholder="ciclo" required>
+                                            <option value="colones" selected>Colones</option>
+                                            <option value="dolares" selected>Dolares</option>
+                                        </select>
+                                    </div>
+                                   
+                                </div>
+
                                 <div class="inputBox">
                                     <span>Nombre Completo :</span>
                                     <input type="text" id="nombreCompleto" placeholder="Alejandro Vasquez Cordero" required>
@@ -256,7 +283,7 @@
 
     <script src="js/StyleScript.js?25"></script>
     <script src="js/serverAPI.js?9687"></script>
-    <script src="js/comprarVehiculo.js?14"></script>
+    <script src="js/comprarVehiculo.js?44"></script>
 
    
    

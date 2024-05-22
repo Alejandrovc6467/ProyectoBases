@@ -36,9 +36,15 @@ const getDatosFormulario = ()=>{
 
 
 const verificarLogin = (correo, contrasenia) => {
-    const uri = 'http://localhost:5080/api/Cliente';
 
-    fetch(`${uri}/${correo},${contrasenia}`, {
+
+    //hacer esto primero
+    // enviar esta contraseniaHash mas adelante, cuando todas el base esten ecriptadas
+    var contraseniaHash = encriptarPassword(contrasenia);
+
+    const uri = 'https://agenciavehiculos.azurewebsites.net/api/Cliente';
+
+    fetch(`${uri}/${correo},${contraseniaHash}`, {
         method: "GET",
         headers: {
             'Accept': 'application/json',
@@ -117,28 +123,3 @@ const errorInicioSesion = ()=>{
 
 };
 
-
-
-/*
-
-
- Swal.fire({
-                            icon: 'success',
-                            title: '¡Genial!',
-                            text: 'Profesor eliminado correctamente',
-                            confirmButtonColor: '#088cff'
-                        });
-
-
-*/
-
-
-/*
- Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'No puedes borrar este profesor porque está asociado a una tesina',
-                            confirmButtonColor: '#088cff'
-                        })
-
-*/

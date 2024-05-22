@@ -1,0 +1,92 @@
+
+
+
+
+.carritoConteiner {
+    display: flex;
+    overflow-x: auto;
+    margin-bottom: 75px;
+}
+
+/* Scrollbar general */
+.carritoConteiner::-webkit-scrollbar {
+    width: 8px; /* Ancho del scrollbar vertical */
+    height: 8px; /* Altura del scrollbar horizontal */
+}
+
+/* Fondo del scrollbar */
+.carritoConteiner::-webkit-scrollbar-track {
+    background: rgba(218, 218, 218, 0.1); /* Gris transparente */
+    border-radius: 10px;
+}
+
+/* Barra del scrollbar */
+.carritoConteiner::-webkit-scrollbar-thumb {
+    background: rgba(170, 170, 170, 0.3); /* Gris un poco más oscuro y transparente */
+    border-radius: 10px;
+}
+
+/* Barra del scrollbar cuando se pasa el mouse por encima */
+.carritoConteiner::-webkit-scrollbar-thumb:hover {
+    background: rgba(226, 226, 226, 0.259); /* Gris más oscuro al pasar el mouse */
+}
+
+/* Opcional: estilo del scrollbar para navegadores no WebKit (Firefox) */
+.carritoConteiner {
+    scrollbar-width: thin; /* Scrollbar más delgado */
+    scrollbar-color: rgba(224, 224, 224, 0.3) rgba(197, 197, 197, 0.1); /* Color de la barra y del fondo */
+}
+
+
+
+
+.buttonCarito{
+    border: none;
+    border-radius: 15px;
+    
+    font-size: 18px;
+    padding: 10px 20px;
+    color: white;
+}
+
+
+.continuar{
+
+    background-color: blue;
+}
+
+
+.limpiar{
+
+    background-color: orange;
+}
+
+
+.detallesDeCompra{
+    margin-top: 70px;
+}
+
+
+
+.inputDescripcion{
+
+    border-radius: 15px;
+    border: 2px solid var(--colorTextoP);
+    padding: 10px 20px;
+    color: gray;
+    margin-bottom: 30px;
+}
+
+
+.inputDescripcion:focus {
+    border-color: rgba(94, 179, 100, 0.562); /* Cambia esto al color que desees */
+    outline: none; /* Opcional: quitar el outline predeterminado del navegador */
+}
+
+
+.labelDescription{
+    color: var(--colorTextoP);
+    margin-bottom: 10px;
+    
+}
+

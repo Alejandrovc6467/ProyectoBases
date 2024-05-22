@@ -1,7 +1,5 @@
 function encriptarPassword(password) {
 
-    //const hashedPassword = hashPassword(password);
-
     return hashPassword(password);
 }
 

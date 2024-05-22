@@ -1,5 +1,7 @@
 
 
+
+
 // Formulario Registro de usuarios 
 document.addEventListener("DOMContentLoaded", ()=>{
 
@@ -9,26 +11,29 @@ document.addEventListener("DOMContentLoaded", ()=>{
         event.preventDefault()
         
 
-        const { nombre, apellidos, telefono, correo, contrasenia, contraseniaVerificacion} = getDatosFormularioRegitroUsuario();
+        const { nombre, apellidos,direccion, telefono, correo, contrasenia, contraseniaVerificacion} = getDatosFormularioRegitroUsuario();
 
-        console.log( nombre, apellidos, telefono, correo, contrasenia, contraseniaVerificacion);
+        console.log( nombre, apellidos,direccion, telefono, correo, contrasenia, contraseniaVerificacion);
 
-        /*
-        const datosValidos = validarNombre(nombre) && validarApellidos(apellidos) && validarTelefono(telefono)  && validarEmail(correo) && validarPassword(contrasenia);
 
+
+       
+
+        if( verificarIgualdadPassword(contrasenia, contraseniaVerificacion) ){
+
+           registarUsuario( nombre, apellidos, direccion, telefono, correo, contrasenia);
+
+
+          
     
-        if(datosValidos){
-
-            if( verificarIgualdadPassword(contrasenia, contraseniaVerificacion) ){
-
-                registarUsuario( nombre, apellidos, telefono, correo, contrasenia);
-            }
         }
-      */
+        
+      
         
     });
 
 });
+
 
 
 //obtener datos del formulario
@@ -36,12 +41,13 @@ const getDatosFormularioRegitroUsuario = ()=>{
 
     const nombre = document.getElementById("nombre").value.trim();
     const apellidos = document.getElementById("apellidos").value.trim();
+    const direccion = document.getElementById("direccion").value.trim();
     const telefono = document.getElementById("telefono").value.trim();
     const correo = document.getElementById("correo").value.trim();
     const contrasenia = document.getElementById("contrasenia").value.trim();
     const contraseniaVerificacion = document.getElementById("contrasenia_verificacion").value.trim();
 
-    return {nombre, apellidos, telefono, correo, contrasenia, contraseniaVerificacion};
+    return {nombre, apellidos,direccion, telefono, correo, contrasenia, contraseniaVerificacion};
 };
 
 
@@ -173,7 +179,15 @@ const validarPassword = (password)=>{
 const verificarIgualdadPassword = (contrasenia, contraseniaVerificacion) =>{
 
     if(contrasenia !== contraseniaVerificacion){
-        mostrarModalNotificacion("Las contraseñas son diferentes");
+       
+        
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Las contraseñas son diferentes',
+            confirmButtonColor: '#088cff'
+        });
+
         return false;
     }else{
         return true;
@@ -182,15 +196,84 @@ const verificarIgualdadPassword = (contrasenia, contraseniaVerificacion) =>{
 
 
 
-const registarUsuario = (cedula, nombre, apellidos, telefono, correo, contrasenia) =>{
 
-    if(verificarExistenciaUsuario(cedula)){
-        registrarUsuarioEnLocalStorage(cedula, nombre, apellidos, telefono, correo, contrasenia);
-        mostrarModalNotificacion("Registro exitoso");
-        limpiarCamposTexto();
-    }else{
-        mostrarModalNotificacion("La cédula ingresada ya está registrada");
-    }
+
+
+
+
+const registarUsuario = ( nombre, apellidos, direccion, telefono, correo, contrasenia) =>{
+
+    console.log( nombre, apellidos, direccion, telefono, correo, contrasenia);
+
+    var contraseniaHash = encriptarPassword(contrasenia);
+
+    console.log(contraseniaHash);
+    
+   
+    const form_data ={
+     id: 0,
+     nombre: nombre,
+     apellido: apellidos,
+     direccion: direccion,
+     telefono: telefono,
+     correo: correo,
+     contrasenia: contraseniaHash
+   };
+
+
+  
+
+     // Convertir el objeto a una cadena JSON
+     const json_data = JSON.stringify(form_data);
+
+  
+ 
+     $.ajax({
+         type: "PUT",
+         url: "https://agenciavehiculos.azurewebsites.net/api/Cliente",
+         data: json_data,
+         contentType: "application/json",
+         dataType: "json",
+         success: function (response) {
+             console.log(response);
+
+
+        
+             
+             
+             if (response === true) {
+                
+                 limpiarCamposTexto()
+
+                 Swal.fire({
+                     icon: 'success',
+                     title: '¡Genial!',
+                     text: 'Usuario registrado correctamente',
+                     confirmButtonColor: '#088cff'
+                 });
+
+
+               
+
+             } else {
+                 Swal.fire({
+                     icon: 'error',
+                     title: 'Oops...',
+                     text: 'Ocurrió un error, intenta nuevamente',
+                     confirmButtonColor: '#088cff'
+                 });
+             }
+
+         
+           
+         },
+         error: function (xhr, status, error) {
+             console.log(error, xhr, status);
+
+            
+         }
+     });
+    
 
 };
 

@@ -2,7 +2,7 @@
 var vehiculos = [];
 
 const obtenerVehiculos = () => {
-  const url = 'http://localhost:5080/api/Vehiculo';
+  const url = 'https://agenciavehiculos.azurewebsites.net/api/Vehiculo';
 
   fetch(url)
   .then(response => {
@@ -88,9 +88,26 @@ function actualizarContadorCarrito() {
 
 
 // Función para imprimir los datos de la tarjeta
+
+
 function agregarVehiculoACarrito(vehiculo) {
+ 
+  var vehiculoConDescripcion = 
+  {
+    anio: vehiculo.anio,
+    id: vehiculo.id,
+    imagen: vehiculo.imagen,
+    marca: vehiculo.marca,
+    modelo: vehiculo.modelo,
+    precio: vehiculo.precio,
+    stock: vehiculo.stock,
+    tipo: vehiculo.tipo,
+    descripcion:""
+
+  };
   
-  carrito.push(vehiculo);
+  
+  carrito.push(vehiculoConDescripcion);
  
   actualizarContadorCarrito();
 }
@@ -183,7 +200,7 @@ const cargarProductosEnCarrito = () => {
   carrito.forEach(function(vehiculo) {
       // Crear un div para la tarjeta del vehículo
       var card = document.createElement("div");
-      card.classList.add("cardVehiculo");
+      card.classList.add("cardVehiculoCarrito");
 
       // Agregamos el ID oculto como un atributo data
       card.dataset.id = vehiculo.id;
@@ -210,12 +227,55 @@ const cargarProductosEnCarrito = () => {
       precio.textContent = '$ '+vehiculo.precio;
       card.appendChild(precio);
 
+
+      // Crear el label
+      var labelDescripcion = document.createElement("label");
+      labelDescripcion.textContent = "Descripción:"; // Texto del label
+      labelDescripcion.classList.add("labelDescription");
+      labelDescripcion.setAttribute("for", "inputDescripcion"); // Establecer el atributo 'for' con el ID del input
+      card.appendChild(labelDescripcion);
+
+
+       // Crear el input para la cantidad
+      var inputDescripcion = document.createElement("input");
+      inputDescripcion.type = "text";
+      inputDescripcion.value = ""; // Valor por defecto vacío
+      inputDescripcion.classList.add("form-control");
+      card.appendChild(inputDescripcion);
+
+
+       // Agregar el event listener al input
+      inputDescripcion.addEventListener("input", function() {
+        agregarDescripcion(vehiculo.id, inputDescripcion.value);
+      });
+
       // Agregar la tarjeta del vehículo al contenedor del carrito
       carritoConteiner.appendChild(card);
   });
 
 
 };
+
+
+// Función para agregar la descripción al objeto en la lista carrito
+const agregarDescripcionAListaVehiculosCarrito = (vehiculoId, inputDescripcion) => {
+ // console.log(vehiculoId, inputDescripcion, " adalista");
+  
+  carrito.forEach(function(vehiculo) {
+      if (vehiculo.id === vehiculoId) {
+          vehiculo.descripcion = inputDescripcion;
+      }
+  });
+  console.log(carrito); // Para verificar que la descripción se ha agregado correctamente
+  
+}
+
+const agregarDescripcion = (vehiculoId, inputDescripcion)=>{
+
+  console.log(vehiculoId, inputDescripcion , "descripcion");
+  agregarDescripcionAListaVehiculosCarrito(vehiculoId, inputDescripcion);
+
+}
 
 
 
@@ -299,84 +359,114 @@ cargarCorreoEnEtiqueta();
 
 
 document.getElementById('formPago').addEventListener('submit', function(event) {
-  event.preventDefault(); // Evitar la recarga de la página
+  event.preventDefault(); 
 
-
-  const vehiculos = carrito.map(item => ({ id: item.id }));
+  const vehiculos = carrito.map(item => ({ id: item.id, descripcion: item.descripcion }));
   console.log(vehiculos);
+  console.log( JSON.stringify(vehiculos));
 
 
-
-
-  const formData = new FormData();
-
-  formData.append("nombreCompleto", document.getElementById("nombreCompleto").value);
-  formData.append("correo", document.getElementById("correo").value);
-  formData.append("direccion", document.getElementById("direccion").value);
-  formData.append("provincia", document.getElementById("provincia").value);
-  formData.append("ciudad", document.getElementById("ciudad").value);
-  formData.append("codigoPostal", document.getElementById("codigoPostal").value);
-  formData.append("nombreTargeta", document.getElementById("nombreTargeta").value);
-  formData.append("numeroTargetaCredito", document.getElementById("numeroTargetaCredito").value);
-  formData.append("mesVencimiento", document.getElementById("mesVencimiento").value);
-  formData.append("anioVencimiento", document.getElementById("anioVencimiento").value);
-  formData.append("cvv", document.getElementById("cvv").value);
-  formData.append("vehiculos", JSON.stringify(vehiculos));
-
-    // Recopila los datos del formulario.
-   
-  console.log(formData);
-
- 
-
-
-  // Leer el objeto desde sessionStorage
   const storedUser = sessionStorage.getItem("sesionUser");
-
-  // Verificar que el objeto no sea null
+  var correo = "";
   if (storedUser) {
-    // Parsear el JSON a un objeto JavaScript
     const sesionUser = JSON.parse(storedUser);
-
-    // Acceder a la propiedad cedula
-    const cedula = sesionUser.cedula;
-
-    // Mostrar la cedula en la consola
-    console.log("Cédula recuperada:", cedula);
+    correo = sesionUser.cedula;
+    console.log("Cédula recuperada:", correo);
   } else {
     console.log("No se encontró ninguna sesión guardada en sessionStorage.");
   }
 
-  /*
+
+  var totalDeLaOrdenElement = document.getElementById("totalDeLaOrden");
+  var totalDeLaOrdenText = totalDeLaOrdenElement.textContent;
+  var nuevoTotalDeLaOrdenText = totalDeLaOrdenText.substring(1);
+  console.log(nuevoTotalDeLaOrdenText);
+
   
-  // Enviar los datos usando fetch
-  fetch('/ruta-al-servidor', {
-      method: 'POST',
-      headers: {
-          'Content-Type': 'application/json'
+
+  var sucursalID = document.getElementById("sucursal").value;
+  var metodoPago = document.getElementById("metodoPago").value;
+
+
+
+
+
+  // Crear el objeto con la estructura requerida
+  const data = {
+    correo: correo,
+    sucursalID: sucursalID,
+    montoTotal: nuevoTotalDeLaOrdenText,
+    metodoPago: metodoPago,
+    vehiculosJson: vehiculos
+  };
+
+// Convertir el objeto a una cadena JSON
+const json_data = JSON.stringify(data);
+
+
+
+ 
+
+    $.ajax({
+        type: "POST",
+        url: "https://agenciavehiculos.azurewebsites.net/api/Venta",
+        data: json_data,
+        contentType: "application/json",
+        dataType: "json",
+        success: function (response) {
+            console.log(response);
+
+
+            if (response === true) {
+               
+              Swal.fire({
+                icon: 'success',
+                title: '¡Genial!',
+                text: 'Solicitud exitosa',
+                confirmButtonColor: '#088cff'
+              });
+
+
+            } else {
+              Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Ocurrió un error, intenta nuevamente',
+                confirmButtonColor: '#088cff'
+              });
+            }
+
+          
+        },
+        error: function (xhr, status, error) {
+            console.log(error, xhr, status);
+
+           
+        }
+    });
+
+  
+
+
+});
+
+
+
+
+//cargar select con las categirias
+$(document).ready(function() {
+  $.ajax({
+      type: "GET",
+      url: "https://agenciavehiculos.azurewebsites.net/api/Sucursal",
+      dataType: "json",
+      success: function(response) {
+          response.forEach(function(sucursal) {
+              $('#sucursal').append(new Option(sucursal.nombre, sucursal.id));
+          });
       },
-      body: JSON.stringify(formData)
-  })
-  .then(response => response.json())
-  .then(data => {
-      // Manejar la respuesta del servidor
-      if (data.success) {
-          alert('Pago realizado con éxito');
-          // Cerrar el modal si es necesario
-          var modalElement = document.getElementById('pagoModal');
-          var modal = bootstrap.Modal.getInstance(modalElement);
-          modal.hide();
-      } else {
-          alert('Hubo un problema con el pago');
+      error: function(xhr, status, error) {
+          console.error("Error al cargar las categorías:", error);
       }
-  })
-  .catch(error => {
-      console.error('Error:', error);
-      alert('Error al realizar el pago');
   });
-
-  */
-
-
 });
 

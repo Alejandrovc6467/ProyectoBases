@@ -91,6 +91,23 @@
   margin: 20px;
 }
 
+
+.cardVehiculoCarrito{
+  border-radius: 15px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  width: 350px;
+  height: 500px;
+  margin: 20px;
+}
+
+
+
 .cardVehiculo img{
   margin-bottom: 35px;
 }

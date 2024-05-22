@@ -1,5 +1,34 @@
 
 
+const cargarCorreoEnEtiqueta = () => {
+
+
+    // Leer el objeto desde sessionStorage
+    const storedUser = sessionStorage.getItem("sesionUser");
+  
+    // Verificar que el objeto no sea null
+    if (storedUser) {
+        // Parsear el JSON a un objeto JavaScript
+        const sesionUser = JSON.parse(storedUser);
+  
+        // Acceder a la propiedad cedula
+        const cedula = sesionUser.cedula;
+  
+        const bienvenidaElement = document.getElementById("bienvenida_nameUser");
+      bienvenidaElement.textContent = cedula;
+  
+        // Mostrar la cedula en la consola
+        console.log("Cédula recuperada:", cedula);
+    } else {
+        console.log("No se encontró ninguna sesión guardada en sessionStorage.");
+    }
+  
+    
+  };
+  
+  cargarCorreoEnEtiqueta();
+
+
 // cargar tabla profesores
 var tableProfesores = null;
 $(document).ready(function () {
@@ -12,7 +41,7 @@ $(document).ready(function () {
     tableProfesores = $('#myTable').DataTable({
 
         "ajax": {
-            "url": "http://localhost:5080/api/Repuesto",
+            "url": "https://agenciavehiculos.azurewebsites.net/api/Repuesto",
             "dataSrc": ""
         },
 
@@ -31,10 +60,10 @@ $(document).ready(function () {
                 "sortable": false,
                 "render": function (data, type, full, meta) {
                     return "<center>" +
-                        "<button type='button' class='butonEditDelete' data-bs-toggle='modal' data-bs-target='#actualizarProfesorModal' id='btnAbrirActualizarProfesorModal'> " +
+                        "<button type='button' class='butonEditDelete' data-bs-toggle='modal' data-bs-target='#modalActualizarPieza' id='cargarDatosAmodalActualizar'> " +
                         "<i class='fa-solid fa-pen-to-square fa-lg' style='color: #6198ff'></i> " +
                         "</button> " +
-                        "<button type='button' class='butonEditDelete' id='btnEliminarProfesor'> " +
+                        "<button type='button' class='butonEditDelete' id='btnEliminarPieza'> " +
                         "<i class='fa-solid fa-circle-xmark fa-lg' style='color:#FF6961'> </i> " +
                         "</button>" +
                         "</center>";
@@ -141,11 +170,11 @@ $(document).ready(function () {
 
 
 
-
+//cargar select con las categirias
 $(document).ready(function() {
     $.ajax({
         type: "GET",
-        url: "http://localhost:5080/api/TipoCategoria",
+        url: "https://agenciavehiculos.azurewebsites.net/api/TipoCategoria",
         dataType: "json",
         success: function(response) {
             response.forEach(function(categoria) {
@@ -157,9 +186,6 @@ $(document).ready(function() {
         }
     });
 });
-
-
-
 
 
 
@@ -193,7 +219,7 @@ document.getElementById('agregarPieza')
          
             $.ajax({
                 type: "POST",
-                url: "http://localhost:5080/api/Repuesto",
+                url: "https://agenciavehiculos.azurewebsites.net/api/Repuesto",
                 data: json_data,
                 contentType: "application/json",
                 dataType: "json",
@@ -206,7 +232,7 @@ document.getElementById('agregarPieza')
                     
                     if (response === true) {
                        
-                        //limpiarCamposFormulario();
+                        limpiarCamposFormulario();
 
                         Swal.fire({
                             icon: 'success',
@@ -260,171 +286,160 @@ const getDatosFormularioRegitrarPieza = () =>{
 
 
 
-/*
-
 // limpira campos formulario registar profesor
 const limpiarCamposFormulario = () => {
-    document.getElementById("cedula").value = '';
     document.getElementById("nombre").value = '';
-    document.getElementById("apellido1").value = '';
-    document.getElementById("apellido2").value = '';
+    document.getElementById("descripcion").value = '';
+    document.getElementById("precio").value = '';
+    document.getElementById("stock").value = '';
 };
 
-
-//validar la cedula con expresion regular
-const validarCedula = (cedula)=>{
-
-    const regex = /^[0-9-]+$/;
-       
-    if(!( cedula.length === 11 && regex.test(cedula) ) ){
-
-        Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Formato de Cédula incorrecto',
-            confirmButtonColor: '#088cff'
-        })
-
-        return false;
-    }else{
-        return true;
-    }
-};
-    
-
-// Obtener el campo de entrada del input cedula en directo
-document.getElementById("cedula").addEventListener("input", function() {
-    // Obtener el valor actual del campo
-    var valor = this.value;
-                
-    // Eliminar cualquier carácter que no sea un dígito o un guión
-    valor = valor.replace(/[^\d-]/g, "");
-    
-    // Limitar la longitud de la cadena a 12 caracteres (#-####-####)
-    valor = valor.slice(0, 11);
-    
-    // Verificar si la longitud actual permite insertar el guión automáticamente
-    if (valor.length > 1 && valor.charAt(1) !== '-') {
-        valor = valor.slice(0, 1) + '-' + valor.slice(1);
-    }
-    if (valor.length > 6 && valor.charAt(6) !== '-') {
-        valor = valor.slice(0, 6) + '-' + valor.slice(6);
-    }
-    
-    // Actualizar el valor del campo con la máscara aplicada
-    this.value = valor;
-         
-});
-
-
-  
 
 
 
 
 // Actualizar Profesor 
 //entra en accion cuando presiono un el boton Editar (Carga los datos en el modal)
-$('#myTable tbody').on('click', '#btnAbrirActualizarProfesorModal', function () {
+$('#myTable tbody').on('click', '#cargarDatosAmodalActualizar', function () {
+
+    console.log("hola");
+
+    
     var data = tableProfesores.row($(this).parents('tr')).data();
 
+    console.log(data);
+
+    
     //setear los inputs del modal con la data de la fila
-    $("#cedula_actualizarProfesor").val(data["cedula"]);
-    $("#nombre_actualizarProfesor").val(data["nombre"]);
-    $("#apellido1_actualizarProfesor").val(data["apellido1"]);
-    $("#apellido2_actualizarProfesor").val(data["apellido2"]);
+    $("#idUpdate").val(data["idRespuesto"]);
+    $("#nombreUpdate").val(data["nombre"]);
+    $("#descripcionUpdate").val(data["descripcion"]);
+    $("#precioUpdate").val(data["precio"]);
+    $("#stockUpdate").val(data["stock"]);
+    
 
     //entra en accion cuando presiono actualizar profesor
-    $("#btnActualizarProfesor").on("click", function (e) {
+    $("#buttonActualizarPieza").on("click", function (e) {
         e.preventDefault();
 
 
-        const { cedula, nombre, apellido1, apellido2 } = getDatosFormularioActulizarProfesor();
+        const {id, nombre, descripcion, precio, stock } = getDatosFormularioActulizarPieza();
 
-        console.log( cedula, nombre, apellido1, apellido2 );
-
-        const datosValidos = validarCedula(cedula) && nombre != '' && apellido1 != '' && apellido2 != ''  ;
+        console.log( id, nombre, descripcion, precio, stock );
 
         
-        if (datosValidos) {
+
+        
+        
+       const form_data ={
+
+        idRespuesto: id,
+        nombreCategoria: "string",
+        nombre: nombre,
+        descripcion: descripcion,
+        precio: precio,
+        stock: stock
+      };
 
 
-            $.ajax({
-                url: "?controlador=Profesor&accion=actualizarProfesor",
-                type: "POST",
-                data: {
-                    cedula: cedula,
-                    nombre: nombre,
-                    apellido1: apellido1,
-                    apellido2: apellido2
-                },
-                success: function (response) {
-                    // Actualizar la fila correspondiente en la tabla
-                    console.log(response);
-    
-                    if (response[0]["1"] === 1) {
-    
-                        Swal.fire({
-                            icon: 'success',
-                            title: '¡Genial!',
-                            text: 'Profesor actualizado correctamente',
-                            confirmButtonColor: '#088cff'
-                        });
-    
-                        tableProfesores.ajax.reload(null, false);
-                    } else {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'Usuario no registrado',
-                            confirmButtonColor: '#088cff'
-                        })
-                    }
-    
-                    // Cerrar el modal
-                    $("#actualizarProfesorModal").modal("hide");
-                },
-                error: function (xhr, status, error) {
-                    console.error(error);
+    // Convertir el objeto a una cadena JSON
+    const json_data = JSON.stringify(form_data);
+
+     
+        $.ajax({
+            type: "PUT",
+            url: "https://agenciavehiculos.azurewebsites.net/api/Repuesto",
+            data: json_data,
+            contentType: "application/json",
+            dataType: "json",
+            success: function (response) {
+                console.log(response);
+
+
+           
+                
+                if (response === true) {
+                   
+                    limpiarCamposFormularioActualizar();
+
+                    Swal.fire({
+                        icon: 'success',
+                        title: '¡Genial!',
+                        text: 'Pieza actualizada correctamente',
+                        confirmButtonColor: '#088cff'
+                    });
+
+
+                     tableProfesores.ajax.reload(null, false);
+                  
+
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Ocurrió un error, intenta nuevamente',
+                        confirmButtonColor: '#088cff'
+                    });
                 }
-            });
+
+                
+                
+
+              
+            },
+            error: function (xhr, status, error) {
+                console.log(error, xhr, status);
+
+               
+            }
+        });
 
           
-        }else{
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Completa todos los campos',
-                confirmButtonColor: '#088cff'
-            })
-        }
+       
+
+        
 
 
     });
+    
+
+    
 });
 
 
 // obtener datos del formulario de registro de profesor
-const getDatosFormularioActulizarProfesor = () =>{
-    const cedula = document.getElementById("cedula_actualizarProfesor").value.trim();
-    const nombre = document.getElementById("nombre_actualizarProfesor").value.trim();
-    const apellido1 = document.getElementById("apellido1_actualizarProfesor").value.trim();
-    const apellido2 = document.getElementById("apellido2_actualizarProfesor").value.trim();
-    
-    return {cedula, nombre, apellido1, apellido2};
+const getDatosFormularioActulizarPieza = () =>{
+    const id = document.getElementById("idUpdate").value.trim();
+    const nombre = document.getElementById("nombreUpdate").value.trim();
+    const descripcion = document.getElementById("descripcionUpdate").value.trim();
+    const precio = document.getElementById("precioUpdate").value.trim();
+    const stock = document.getElementById("stockUpdate").value.trim();
+
+    return {id, nombre, descripcion, precio, stock };
+};
+
+
+// limpiar datos del formulario de actualizar de profesor
+const limpiarCamposFormularioActualizar = () =>{
+
+    document.getElementById("idUpdate").value = '';
+    document.getElementById("nombreUpdate").value = '';
+    document.getElementById("descripcionUpdate").value = '';
+    document.getElementById("precioUpdate").value = '';
+    document.getElementById("stockUpdate").value = '';
+
 };
 
 
 
 
-
-// eliminar Profesor 
-$('#myTable tbody').on('click', '#btnEliminarProfesor', function () {
-
+// eliminar pieza 
+$('#myTable tbody').on('click', '#btnEliminarPieza', function () {
     var data = tableProfesores.row($(this).parents('tr')).data();
-    var cedula = data["cedula"];
+    var id = data["idRespuesto"];
 
     Swal.fire({
-        title: "¿Quieres eliminar al profesor?",
+        title: "¿Quieres eliminar la pieza?",
         text: "¡No podrás revertir esto!",
         icon: "warning",
         showCancelButton: true,
@@ -434,55 +449,57 @@ $('#myTable tbody').on('click', '#btnEliminarProfesor', function () {
         cancelButtonText: "Cancelar",
     }).then((result) => {
 
-
-
         if (result.isConfirmed) {
-
-            // revisar que no este en ninguna tesina o sino no lo puedo borrar
-
-            $.ajax({
-                url: "?controlador=Profesor&accion=eliminarProfesor",
-                type: "POST",
-                data: { cedula: cedula },
-                success: function (response) {
-
-                    if (response[0]["mensaje"] === "Profesor borrado correctamente") {
-
-                        tableProfesores.ajax.reload(null, false);
-
-                        Swal.fire({
-                            icon: 'success',
-                            title: '¡Genial!',
-                            text: 'Profesor eliminado correctamente',
-                            confirmButtonColor: '#088cff'
-                        });
-
-                    } else if(response[0]["mensaje"] === "No puedes borrar este profesor porque está asociado a una tesina") {
-
-                        tableProfesores.ajax.reload(null, false);
-
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'No puedes borrar este profesor porque está asociado a una tesina',
-                            confirmButtonColor: '#088cff'
-                        })
-                       
+            // Function to make the fetch request and handle the response
+            async function eliminarPieza(id) {
+                try {
+                    const response = await fetch(`https://agenciavehiculos.azurewebsites.net/api/Repuesto?id=${id}`, {
+                        method: 'DELETE', // Assuming the API uses DELETE for removal
+                    });
+                    
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
                     }
 
-
-                },
-                error: function (xhr, status, error) {
-                    console.error(error);
+                    const result = await response.json();
+                    
+                    if (result === true) {
+                        Swal.fire(
+                            'Eliminado!',
+                            'La pieza ha sido eliminada.',
+                            'success'
+                        );
+                        // Optionally refresh the table or remove the row
+                        tableProfesores.ajax.reload(null, false);
+                    } else if (result === false) {
+                        Swal.fire(
+                            'Error!',
+                            'No se pudo eliminar la pieza.',
+                            'error'
+                        );
+                    } else {
+                        Swal.fire(
+                            'Respuesta inesperada',
+                            'El servidor respondió de manera inesperada.',
+                            'error'
+                        );
+                        console.log('Respuesta inesperada:', result);
+                    }
+                } catch (error) {
+                    console.error('Hubo un problema con la solicitud fetch:', error);
+                    Swal.fire(
+                        'Error!',
+                        'Hubo un problema con la solicitud.',
+                        'error'
+                    );
                 }
-            });
+            }
+
+            eliminarPieza(id);
         }
 
-
-
     });
-
-
 });
 
-*/
+
+
