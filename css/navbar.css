@@ -1,3 +1,12 @@
+
+
+
+/**/
+
+
+
+
+
 .header{
     position: fixed;
     top: 0;
@@ -6,7 +15,7 @@
     width: 100%;
     padding: 10px 20px;
 
-    background-color: #f2f7ff;
+    background-color: var(--colorFondoBody);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -25,6 +34,7 @@
     text-decoration: none;
     margin: 0 10px;
     color: var(--colorTextoP);
+   
     font-family: "Alegreya Sans", sans-serif;
     font-weight: 500;
     font-style: italic;
@@ -32,6 +42,7 @@
     cursor: pointer;
     transition: 0.5s;
 }
+
 
 
 .navBar_logo:hover {
@@ -51,16 +62,32 @@
 }
 
 
+.navBar_logo img{
+    margin-bottom: 10px;
+}
+
 .navBar_logo {
     font-size: 20px;
     font-weight: bold;
     font-family: var( --Permanent-Marker);
    
-    color: var(--colorBaseVeterinaria);
+
+     background: var(--colorBaseVeterinaria);
+   
+    
+     /* Configura el degradado para que solo afecte al texto */
+     -webkit-background-clip: text;
+     -webkit-text-fill-color: transparent;
+         
+     /* También agrega el soporte de otras navegadores */
+     background-clip: text;
+     color: transparent;
+     
 }
 
 .navBar_logo i {
     color: var(--colorBaseVeterinaria);
+    color: #737373;
 }
 
 
@@ -103,24 +130,34 @@
         background-color: var(--colorFondoBody);
         transition: .4s ease;
         
-
+      
         display: flex;
         flex-direction: column;
         align-items: center;
+        justify-content: flex-start;
         overflow-y: auto; 
+
+        padding: 0;
+        margin: 0;
     }
 
     #check:checked~.navbar {
         height: 100vh;
     }
-    
+
+
+   
+
+
     .navbar a{
         margin-top: 35px;
+        margin-bottom: 35px;
     }
 
     .header{
         padding: 10px 5px;
     }
+
 
    
    
